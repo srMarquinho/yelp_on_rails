@@ -80,4 +80,10 @@ feature 'restaurants' do
       expect(page).to have_content 'Restaurant deleted successfully'
     end
   end
+
+  scenario 'does not allow not sign out to add a restaurant user and prompts user to sign_up' do
+    visit '/restaurants'
+    click_link 'Add a restaurant'
+    expect(current_path).to eq '/users/sign_in'
+  end
 end
