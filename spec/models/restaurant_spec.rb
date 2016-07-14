@@ -20,7 +20,7 @@ describe Restaurant, type: :model do
     let(:restaurant) { Restaurant.create name: 'Test' }
     let(:review_params) { {rating: 5, thoughts: 'yum'} }
 
-    subject(:review) { restaurant.reviews.build_with_user(review_params, user) }
+    subject(:review) { Review.create {review_params}}
 
     it 'builds a review' do
       expect(review).to be_a Review
