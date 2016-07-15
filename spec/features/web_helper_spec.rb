@@ -43,10 +43,11 @@ def edit_restaurant
   click_button 'Update Restaurant'
 end
 
-def review_restaurant
+def leave_review(thoughts, rating)
+  visit '/restaurants'
   click_link 'Review KFC'
-  fill_in "Thoughts", with: "so so"
-  select '3', from: 'Rating'
+  fill_in 'Thoughts', with: thoughts
+  select rating, from: 'Rating'
   click_button 'Leave Review'
 end
 

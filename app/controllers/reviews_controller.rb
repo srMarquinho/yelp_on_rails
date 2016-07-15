@@ -6,12 +6,6 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = Review.new
   end
-# TO FIX
-  # def edit
-  #   @restaurant = Restaurant.find(params[:restaurant_id])
-  #   @review = Review.find(params[:id])
-  #   p @review
-  # end
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
