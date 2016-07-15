@@ -14,8 +14,6 @@ describe Restaurant, type: :model do
   end
 
   describe 'reviews' do
-  describe 'build_with_user' do
-
     let(:user) { User.create email: 'test@test.com' }
     let(:restaurant) { Restaurant.create name: 'Test' }
     let(:review_params) { {rating: 5, thoughts: 'yum'} }
@@ -30,5 +28,4 @@ describe Restaurant, type: :model do
       expect(review.user_id).to eq user.id
     end
   end
-end
 end

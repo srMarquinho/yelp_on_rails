@@ -1,2 +1,12 @@
 <p><%= @restaurant.name %></p>
 <p><%= @restaurant.description %></p>
+<br />
+
+Reviews:
+<br />
+<%  @restaurant.reviews.each do |review| %>
+  <%= "Thoughts: #{review.thoughts}" %><br />
+  <%= "Rating: #{review.rating}" %><br />
+  <%= link_to "Edit", edit_restaurant_review_path(review.id) %><br />
+  <br />
+<% end %>

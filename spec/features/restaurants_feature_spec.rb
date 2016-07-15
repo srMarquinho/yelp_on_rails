@@ -4,7 +4,7 @@ feature 'restaurants' do
 
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
-      visit '/restaurants'
+      visit restaurants_path
       expect(page).to have_content 'No restaurants yet'
       expect(page).to have_link 'Add a restaurant'
     end
@@ -24,7 +24,7 @@ feature 'restaurants' do
       sign_up
       create_restaurant
       expect(page).to have_content 'KFC'
-      expect(current_path).to eq '/restaurants'
+      expect(current_path).to eq restaurants_path
     end
 
 
@@ -47,13 +47,22 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-    scenario 'let a user edit a restaurant' do
+    scenario 'let owner user edit a restaurant' do
       sign_up
       create_restaurant
       edit_restaurant
       expect(page).to have_content 'Kentucky Fried Chicken'
       expect(page).to have_content 'Deep fried goodness'
-      expect(current_path).to eq '/restaurants'
+      expect(current_path).to eq restaurants_path
+    end
+
+    scenario 'do not let not owner user edit a restaurant' do
+      sign_up
+      create_restaurant
+      sign_out
+      sign_up_diff_user
+      edit_restaurant
+      expect(page).to have_content 'You must be the owner to update a restaurant'
     end
   end
 
@@ -65,11 +74,20 @@ feature 'restaurants' do
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
+
+    scenario 'do not let not owner user edit a restaurant' do
+      sign_up
+      create_restaurant
+      sign_out
+      sign_up_diff_user
+      click_link 'Delete KFC'
+      expect(page).to have_content 'You must be the owner to delete a restaurant'
+    end
   end
 
-  scenario 'does not allow not sign out to add a restaurant user and prompts user to sign_up' do
-    visit '/restaurants'
+  scenario 'does not allow sing_out users to add a restaurant and prompts user to sign_up' do
+    visit restaurants_path
     click_link 'Add a restaurant'
-    expect(current_path).to eq '/users/sign_in'
+    expect(current_path).to eq user_session_path
   end
 end
